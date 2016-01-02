@@ -180,6 +180,7 @@ int main(int argc, char *argv[])
 			{"acktime",	1,	0,	'a'},
 			{"bssid",	1,	0,	'b'},
 			{"channel",	1,	0,	'c'},
+			{"pixiewps",	0,	0,	'd'},
 			{"essid",	1,	0,	'e'},
 			{"index",	1,	0,	'i'},
 			{"lockwait",	1,	0,	'l'},
@@ -211,11 +212,10 @@ int main(int argc, char *argv[])
 			{"windows7",	0,	0,	'W'},
 			{"suppress",	0,	0,	'Z'},
 			{"help",	0,	0,	'h'},
-			{"pixiewps",	0,	0,	'd'},
 			{0,		0,	0,	 0 }
 		};
 
-		int option = getopt_long( argc, argv, "a:b:c:e:i:l:m:o:p:r:s:t:v:w:1:2:d5ABCDEFLMNPRSTVWZh",
+		int option = getopt_long( argc, argv, "a:b:c:d:e:i:l:m:o:p:r:s:t:v:w:1:2:5ABCDEFLMNPRSTVWZh",
 					long_options, &option_index );
 
 		if( option < 0 ) break;
@@ -334,7 +334,6 @@ int main(int argc, char *argv[])
 				memset(pixierun, 0, sizeof(pixierun));
 				strcpy(pixierun,"1");
 				break;
-
 			case '5' :
 				G->hop = AN_CHANS;
 				break;
