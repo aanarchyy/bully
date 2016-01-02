@@ -1897,7 +1897,6 @@ static int wps_process_e_hash2(struct wps_data *wps, const u8 *e_hash2)
 	                	}
 				while (fgets(pixie_buf_aux2, 4000, fpixe_test) != NULL) 
 				{
-                	
 					if(strstr(pixie_buf_aux2,"	PIN : ")!=NULL)
 					{
 						printf("[Bully Test] %s", pixie_buf_aux2);
@@ -1906,15 +1905,10 @@ static int wps_process_e_hash2(struct wps_data *wps, const u8 *e_hash2)
 					{
 						printf("[Bully Test] %s", pixie_buf_aux2);
 					}
-	
 				}
-	
-	
 		    	}
 	        }
-        	
-	
-	}	
+ 	}	
 	/******/
 
 	return 0;
