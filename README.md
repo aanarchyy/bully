@@ -18,4 +18,4 @@ You **must** already have Wiire's Pixiewps installed.
 The latest version can be found here: [https://github.com/wiire/pixiewps](https://github.com/wiire/pixiewps).
 
 ## -d --pixiewps
-The -d option option performances the offline attack, Pixie Dust _(`pixiewps`)_, by automatically passing the **PKE**, **PKR**, **E-Hash1**, **E-Hash2**, **E-Nonce** and **Authkey** variables. `pixiewps` will then try to attack **Ralink**, **Broadcom** and **Realtek** detected chipset.
+The -d option option performs an offline attack, Pixie Dust _(`pixiewps`)_, by automatically passing the **PKE**, **PKR**, **E-Hash1**, **E-Hash2**, **E-Nonce** and **Authkey** variables. `pixiewps` will then try to attack **Ralink**, **Broadcom** and **Realtek** detected chipset.
