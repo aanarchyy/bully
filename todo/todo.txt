@@ -1,0 +1,2 @@
+>Consider switching to a cmake or similar build method for building in clean directory from /src
+>older email pasted diff patch including timeout(cant remember must look it up) clean up some error handling and add in the timeout patch
