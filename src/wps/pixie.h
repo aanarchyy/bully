@@ -18,3 +18,5 @@ char pixie_ehash2[100];					/* save e-hash2 */
 char p_iface[100];
 char p_bssid[100];
 char pixierun[100];
+
+int op_gen_pin;

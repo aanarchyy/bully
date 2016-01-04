@@ -248,14 +248,21 @@ int get_start(struct global *G)
 	strcat(oldf, "/");
 	strcat(oldf, G->ssids);
 	strcat(oldf, ".run");
+	
+
 	if ((rf = fopen(oldf, "r")) != NULL)
 		rename(oldf, G->runf);
 	free(oldf);
 
 	if ((rf = fopen(G->runf, "r")) == NULL) {
+		
 		if ((rf = fopen(G->runf, "w")) != NULL) {
-			fprintf(rf, "# DO NOT MODIFY CONTENTS OF THIS FILE\n# '%s' (%s)\n", G->essid, G->ssids);
-			fclose(rf);
+			if (!(op_gen_pin == 0))
+			{
+
+				fprintf(rf, "# DO NOT MODIFY CONTENTS OF THIS FILE\n# '%s' (%s)\n", G->essid, G->ssids);	
+				fclose(rf);
+			};
 		};
 		return 0;
 	};
@@ -267,7 +274,7 @@ int get_start(struct global *G)
 
 	if ((sscanf(last, "%8d:%8d:%1d:", &index, &pin, &broken)) != 3) {
 		vprint("[X] Session save file appears corrupted, exiting\n");
-		exit(8);
+		//exit(8);
 	};
 
 	if (G->broken) {

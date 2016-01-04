@@ -157,8 +157,9 @@ int main(int argc, char *argv[])
 		G->k2delay = 5;
 		G->k2step = 1;
 		G->pinstart = G->pindex = -1;
+		op_gen_pin = 0;
 		//Pixie
-
+		
 		char *temp = getpwuid(getuid())->pw_dir;
 		G->warpath = malloc(strlen(temp) + strlen(EXE_NAME) + 3);
 		strcpy(G->warpath, temp);
@@ -182,6 +183,7 @@ int main(int argc, char *argv[])
 			{"channel",	1,	0,	'c'},
 			{"pixiewps",	0,	0,	'd'},
 			{"essid",	1,	0,	'e'},
+			{"genpin",	0,	0,	'g'},
 			{"index",	1,	0,	'i'},
 			{"lockwait",	1,	0,	'l'},
 			{"m13time",	1,	0,	'm'},
@@ -215,7 +217,7 @@ int main(int argc, char *argv[])
 			{0,		0,	0,	 0 }
 		};
 
-		int option = getopt_long( argc, argv, "a:b:c:de:i:l:m:o:p:r:s:t:v:w:1:2:5ABCDEFLMNPRSTVWZh",
+		int option = getopt_long( argc, argv, "a:b:c:de:g:i:l:m:o:p:r:s:t:v:w:1:2:5ABCDEFLMNPRSTVWZh",
 					long_options, &option_index );
 
 		if( option < 0 ) break;
@@ -243,6 +245,11 @@ int main(int argc, char *argv[])
 			case 'e' :
 				G->essid = optarg;
 				break;
+			
+			case 'g' :
+				get_int(optarg, &op_gen_pin);
+				break;						
+
 			case 'i' :
 				if (get_int(optarg, &G->pindex) != 0 || 99999999 < G->pindex) {
 					snprintf(G->error, 256, "Bad starting index number -- %s\n", optarg);
@@ -890,6 +897,11 @@ restart:
 		vprint("[*] Pin is '%s', key is '%s'\n", pinstr, G->wdata->cred.key);
 
 	if ((rf = fopen(G->runf, "a")) != NULL) {
+		if (op_gen_pin == 1)
+		{
+			return;
+		}
+
 		gettimeofday(&timer, NULL);
 		strftime(G->error, 256, "%Y-%m-%d %H:%M:%S", localtime(&timer.tv_sec));
 		fprintf(rf, "# session ended %s with signal %d\n%08d:%08d:%01d:%s:\n",
