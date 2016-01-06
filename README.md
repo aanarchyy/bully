@@ -97,5 +97,5 @@ make
       -h, --help             : Display this help information
 ```
 
-## -d --pixiewps
+## -d // --pixiewps
 The -d option option performs an offline attack, Pixie Dust _(`pixiewps`)_, by automatically passing the **PKE**, **PKR**, **E-Hash1**, **E-Hash2**, **E-Nonce** and **Authkey**. `pixiewps` will then try to attack **Ralink**, **Broadcom** and **Realtek** chipsets.
