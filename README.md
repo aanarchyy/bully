@@ -1,8 +1,3 @@
-This is my personal copy of the original bully project.
-
-
-
-
 # OVERVIEW
 
 **Bully** is a new implementation of the WPS brute force attack, written in C. It is conceptually identical
