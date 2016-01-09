@@ -1800,7 +1800,6 @@ static int wps_process_e_hash2(struct wps_data *wps, const u8 *e_hash2)
 	if (*pixierun > 0)
 	{
 		memset(pixie_ehash2,0,sizeof(pixie_ehash2));
-		printf("[P] E-Hash2: ");
 		int pixiecnt = 0;
 		for (; pixiecnt < WPS_HASH_LEN; pixiecnt++) {
 			sprintf(cmd_pixie_aux, "%02x",  wps->peer_hash2[pixiecnt]);
