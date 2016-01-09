@@ -73,7 +73,7 @@ int wps_build_public_key(struct wps_data *wps, struct wpabuf *msg)
 			}
 			if ( debug_level <= 3 )
 			{
-				printf("[P] PKR recieved.\n");
+				printf("[P] PKR received.\n");
 			} else {
 				printf("[P] PKR: %s\n", pixie_pkr);
 			}
