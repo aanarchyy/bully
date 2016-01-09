@@ -1344,7 +1344,6 @@ static struct wpabuf * wps_build_m2(struct wps_data *wps)
 				strcat(pixie_rnonce,":");
 			}
 	    }
-		printf("Debug %i\n", debug_level);
 	    if ( debug_level <= 3 )
 		{
 			printf("[P] RNonce recieved.\n");
