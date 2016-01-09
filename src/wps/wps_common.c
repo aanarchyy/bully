@@ -135,7 +135,7 @@ int wps_derive_keys(struct wps_data *wps)
 		}
 		if ( debug_level <= 3 )
 		{
-			printf("[P] Authkey recieved.\n");
+			printf("[P] Authkey received.\n");
 		} else {
 			printf("[P] Authkey: %s\n", pixie_authkey);
 		}
