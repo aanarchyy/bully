@@ -1346,7 +1346,7 @@ static struct wpabuf * wps_build_m2(struct wps_data *wps)
 	    }
 	    if ( debug_level <= 3 )
 		{
-			printf("[P] RNonce recieved.\n");
+			printf("[P] RNonce received.\n");
 		} else {
 			printf("[P] RNonce: %s\n", pixie_rnonce);
 		}
@@ -1699,7 +1699,7 @@ static int wps_process_enrollee_nonce(struct wps_data *wps, const u8 *e_nonce)
 		}
 		if ( debug_level <= 3 )
 		{
-			printf("[P] ENonce recieved.\n");
+			printf("[P] ENonce received.\n");
 		} else {
 			printf("[P] ENonce: %s\n", pixie_enonce);
 		}
@@ -1776,7 +1776,7 @@ static int wps_process_e_hash1(struct wps_data *wps, const u8 *e_hash1)
 		}
 		if ( debug_level <= 3 )
 		{
-			printf("[P] E-Hash1 recieved.\n");
+			printf("[P] E-Hash1 received.\n");
 		} else {
 				printf("[P] E-Hash1: %s\n", pixie_ehash1);
 		}
@@ -1810,7 +1810,7 @@ static int wps_process_e_hash2(struct wps_data *wps, const u8 *e_hash2)
 		}
 		if ( debug_level <= 3 )
 		{
-			printf("[P] E-Hash2 recieved.\n");
+			printf("[P] E-Hash2 received.\n");
 		} else {
 		printf("[P] E-Hash2: %s\n", pixie_ehash2);
 		}
@@ -1963,7 +1963,7 @@ static int wps_process_pubkey(struct wps_data *wps, const u8 *pk,
 
 		if ( debug_level <= 3 )
 		{
-			printf("[P] PKE recieved.\n");
+			printf("[P] PKE received.\n");
 		} else {
 			printf("[P] PKE: %s\n", pixie_pke);
 		}
