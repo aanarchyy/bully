@@ -13,10 +13,10 @@ char pixie_authkey[100];				/* save AuthKey */
 char pixie_ehash1[100];					/* save e-hash1 */
 char pixie_ehash2[100];					/* save e-hash2 */
 	
-//int op_pixie=0;
-
 char p_iface[100];
 char p_bssid[100];
 char pixierun[100];
+char pixie_pin[16];
 
 int op_gen_pin;
+int pix_success;
