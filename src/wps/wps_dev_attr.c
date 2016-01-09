@@ -187,7 +187,7 @@ static int wps_process_manufacturer(struct wps_device_data *dev, const u8 *str,
 
 	wpa_hexdump_ascii(MSG_DEBUG, "WPS: Manufacturer", str, str_len);
 
-	if (*pixierun > 0)
+	if ((*pixierun > 0) && (debug_level == 4))
 	{
 		printf("[P] WPS Manufacturer: ");
 		int pixiecnt = 0;
@@ -218,7 +218,7 @@ static int wps_process_model_name(struct wps_device_data *dev, const u8 *str,
 
 	wpa_hexdump_ascii(MSG_DEBUG, "WPS: Model Name", str, str_len);
 
-	if (*pixierun > 0)
+	if ((*pixierun > 0) && (debug_level == 4))
 	{
 		printf("[P] WPS Model Name: ");
 		int pixiecnt = 0;
@@ -249,7 +249,7 @@ static int wps_process_model_number(struct wps_device_data *dev, const u8 *str,
 
 	wpa_hexdump_ascii(MSG_DEBUG, "WPS: Model Number", str, str_len);
 
-	if (*pixierun > 0)
+	if ((*pixierun > 0) && (debug_level == 4))
 	{
 		printf("[P] WPS Model Number: ");
 		int pixiecnt = 0;
@@ -280,7 +280,7 @@ static int wps_process_serial_number(struct wps_device_data *dev,
 
 	wpa_hexdump_ascii(MSG_DEBUG, "WPS: Serial Number", str, str_len);
 
-	if (*pixierun > 0)
+	if ((*pixierun > 0) && (debug_level == 4))
 	{
 		printf("[P] WPS Serial Number: ");
 		int pixiecnt = 0;

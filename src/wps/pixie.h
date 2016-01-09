@@ -20,3 +20,4 @@ char pixie_pin[16];
 
 int op_gen_pin;
 int pix_success;
+int debug_level;

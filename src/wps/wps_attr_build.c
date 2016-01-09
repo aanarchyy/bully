@@ -71,7 +71,12 @@ int wps_build_public_key(struct wps_data *wps, struct wpabuf *msg)
 					strcat(pixie_pkr,":");
 				}
 			}
-			printf("[P] PKR: %s\n", pixie_pkr);
+			if ( debug_level <= 3 )
+			{
+				printf("[P] PKR recieved.\n");
+			} else {
+				printf("[P] PKR: %s\n", pixie_pkr);
+			}
 		}	
 
 	} else {

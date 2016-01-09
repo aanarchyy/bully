@@ -303,11 +303,12 @@ int main(int argc, char *argv[])
 				printf("Deprecated option --timeout (-t) ignored\n");
 				break;
 			case 'v' :
-				if (get_int(optarg, &G->verbose) != 0 || G->verbose < 1 || 3 < G->verbose) {
+				if (get_int(optarg, &G->verbose) != 0 || G->verbose < 1 || 4 < G->verbose) {
 					snprintf(G->error, 256, "Bad verbosity level -- %s\n", optarg);
 					goto usage_err;
 				};
 				__vb = G->verbose;
+				get_int(optarg, &debug_level);
 				break;
 			case 'w' :
 				if (stat(optarg, &wstat) || !S_ISDIR(wstat.st_mode)) {
@@ -798,9 +799,10 @@ restart:
 			memset(pixie_pin, 0, sizeof(pixie_pin));
 		
 			printf("[+] Running pixiewps with the information, wait ...\n");
-			printf("Cmd : %s\n",cmd_pixie);
-			
-			
+			if ( debug_level == 4 )
+			{
+				printf("Cmd : %s\n",cmd_pixie);
+			};
 			while (fgets(pixie_buf_aux, 4000, fpixe) != NULL) 
 			{
 				aux_pixie_pin = strstr(pixie_buf_aux,"WPS pin not found");
@@ -811,7 +813,6 @@ restart:
 					
 					//break;
 				};
-						
 					
 				aux_pixie_pin = strstr(pixie_buf_aux,"WPS pin:");
 				pix_success = 0;
@@ -833,7 +834,6 @@ restart:
 							printf("\n[Pixie-Dust] PIN FOUND: %s\n", pixie_pin);
 					pix_success = 1;
 					strcpy(pinstr, pixie_pin);
-					 
 					
 				};
 	
@@ -995,7 +995,6 @@ restart:
 		fprintf(stderr, "\n\tKEY : '%s'\n\n", G->wdata->cred.key);
 	} else
 		result = -1;
-
 
 		return result;
 

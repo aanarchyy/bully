@@ -133,7 +133,12 @@ int wps_derive_keys(struct wps_data *wps)
 			strcat(pixie_authkey,":");
 			}
 		}
-		printf("[P] Authkey: %s\n", pixie_authkey);
+		if ( debug_level <= 3 )
+		{
+			printf("[P] Authkey recieved.\n");
+		} else {
+			printf("[P] Authkey: %s\n", pixie_authkey);
+		}
 	}	
 
 	wpa_hexdump_key(MSG_DEBUG, "WPS: AuthKey",
