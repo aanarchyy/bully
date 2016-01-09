@@ -831,7 +831,7 @@ restart:
 									break;
 								};
 							};
-							printf("\n[Pixie-Dust] PIN FOUND: %s\n", pixie_pin);
+							//printf("\n[Pixie-Dust] PIN FOUND: %s\n", pixie_pin);
 					pix_success = 1;
 					strcpy(pinstr, pixie_pin);
 					
