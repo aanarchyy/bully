@@ -1,4 +1,4 @@
-# OVERVIEW
+# OVERVIEW [![License](https://img.shields.io/badge/License-GPL%20v3%2B-blue.svg?style=flat-square)](https://github.com/aanarchyy/bully/blob/master/LICENSE.md)
 
 **Bully** is a new implementation of the WPS brute force attack, written in C. It is conceptually identical
 to other programs, in that it exploits the (now well known) design flaw in the WPS specification. It has
