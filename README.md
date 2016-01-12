@@ -93,7 +93,11 @@ make
 ```
 
 ## -d // --pixiewps
-The -d option option performs an offline attack, Pixie Dust _(`pixiewps`)_, by automatically passing the **PKE**, **PKR**, **E-Hash1**, **E-Hash2**, **E-Nonce** and **Authkey**. `pixiewps` will then try to attack **Ralink**, **Broadcom** and **Realtek** chipsets.
+The -d option performs an offline attack, Pixie Dust _(`pixiewps`)_, by automatically passing the **PKE**, **PKR**, **E-Hash1**, **E-Hash2**, **E-Nonce** and **Authkey**. `pixiewps` will then try to attack **Ralink**, **Broadcom** and **Realtek** chipsets.
+
+## -g // --genpin
+The -g option uses known default pin generators.
+Options are -g 1 for D-Link and -g 2 for Belkin access points.
 
 ## -v // --verbosity
 The -v option specifies the verbosity of **bully**.
