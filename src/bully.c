@@ -808,7 +808,7 @@ restart:
 				aux_pixie_pin = strstr(pixie_buf_aux,"WPS pin not found");
 				if(aux_pixie_pin != NULL)
 				{
-					printf("\n[Pixie-Dust] WPS pin not found\n");
+					printf("[Pixie-Dust] WPS pin not found\n");
 					pixie_test = 0;
 					
 					//break;
@@ -819,29 +819,26 @@ restart:
 				if(aux_pixie_pin != NULL)
 				{
 					pixie_test = 1;
-							//here will get the pin
-							//a slightly better way to locate the pin
-							//thx offensive-security by attention
+					//here will get the pin
+					//a slightly better way to locate the pin
+					//thx offensive-security by attention
 						
-							for(i=0;i<strlen(aux_pixie_pin);i++)
-							{
-								if(isdigit(aux_pixie_pin[i]))
-								{
-									strncpy(pixie_pin, aux_pixie_pin + i, 8);
-									break;
-								};
-							};
-							printf("\n[Pixie-Dust] PIN FOUND: %s\n", pixie_pin);
+					for(i=0;i<strlen(aux_pixie_pin);i++)
+					{
+						if(isdigit(aux_pixie_pin[i]))
+						{
+							strncpy(pixie_pin, aux_pixie_pin + i, 8);
+							break;
+						};
+					};
 					pix_success = 1;
 					strcpy(pinstr, pixie_pin);
-					
 				};
-	
 			};
-	
+			pclose(fpixe);
 		};
-		if (*pixie_ehash2) { 
-			printf("\n[Pixie-Dust] PIN FOUND: %s\n", pixie_pin);
+		if (*pixie_pin) { 
+			printf("[Pixie-Dust] PIN FOUND: %s\n", pixie_pin);
 			ctrlc--;
 			strcpy(pixierun,"");
 			
@@ -853,7 +850,7 @@ restart:
 			result = reassoc(G);
 		};
 
-		if (ctrlc) {
+		if (ctrlc && !pixie_pin) {
 			result = ctrlc;
 			break;
 		};
@@ -991,8 +988,10 @@ restart:
 		fprintf(stderr, "WARNING : Couldn't save session to '%s'\n", G->runf);
 
 	if (result == SUCCESS) {
-		fprintf(stderr, "\n\tPIN : '%s'", pinstr);
-		fprintf(stderr, "\n\tKEY : '%s'\n\n", G->wdata->cred.key);
+		fprintf(stderr, "\n\tPIN   : '%s'", pinstr);
+		fprintf(stderr, "\n\tKEY   : '%s'", G->wdata->cred.key);
+		fprintf(stderr, "\n\tBSSID : '%s'", p_bssid);
+		fprintf(stderr, "\n\tESSID : '%s'\n\n", G->essid); 
 	} else
 		result = -1;
 
