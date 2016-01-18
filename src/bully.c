@@ -784,7 +784,7 @@ restart:
 			strcat(cmd_pixie,pixie_enonce);
 			strcat(cmd_pixie," -m ");
 			strcat(cmd_pixie,pixie_rnonce);
-			strcat(cmd_pixie," -v 1");
+			strcat(cmd_pixie," -v 1 --force");
 				
 			FILE *fpixe;
 				
