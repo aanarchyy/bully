@@ -1331,7 +1331,7 @@ static struct wpabuf * wps_build_m2(struct wps_data *wps)
 	wpa_hexdump(MSG_DEBUG, "WPS: UUID-R", wps->uuid_r, WPS_UUID_LEN);
 
 
-	if (*pixierun > 0)
+	if (run_pixiewps == 1)
 	{
 		memset(cmd_pixie_aux,0,sizeof(cmd_pixie_aux));
 		memset(pixie_rnonce,0,sizeof(pixie_rnonce));
@@ -1683,7 +1683,7 @@ static int wps_process_enrollee_nonce(struct wps_data *wps, const u8 *e_nonce)
 	wpa_hexdump(MSG_DEBUG, "WPS: Enrollee Nonce",
 		    wps->nonce_e, WPS_NONCE_LEN);
 
-	if (*pixierun > 0)
+	if (run_pixiewps == 1)
 	{
 		memset(cmd_pixie_aux,0,sizeof(cmd_pixie_aux));
 		memset(pixie_enonce,0,sizeof(pixie_enonce));
@@ -1763,7 +1763,7 @@ static int wps_process_e_hash1(struct wps_data *wps, const u8 *e_hash1)
 	os_memcpy(wps->peer_hash1, e_hash1, WPS_HASH_LEN);
 	wpa_hexdump(MSG_DEBUG, "WPS: E-Hash1", wps->peer_hash1, WPS_HASH_LEN);
 
-	if (*pixierun > 0)
+	if (run_pixiewps == 1)
 	{	
 		memset(pixie_ehash1,0,sizeof(pixie_ehash1));
 		int pixiecnt = 0;
@@ -1797,7 +1797,7 @@ static int wps_process_e_hash2(struct wps_data *wps, const u8 *e_hash2)
 	os_memcpy(wps->peer_hash2, e_hash2, WPS_HASH_LEN);
 	wpa_hexdump(MSG_DEBUG, "WPS: E-Hash2", wps->peer_hash2, WPS_HASH_LEN);
 
-	if (*pixierun > 0)
+	if (run_pixiewps == 1)
 	{
 		memset(pixie_ehash2,0,sizeof(pixie_ehash2));
 		int pixiecnt = 0;
@@ -1814,7 +1814,7 @@ static int wps_process_e_hash2(struct wps_data *wps, const u8 *e_hash2)
 		} else {
 		printf("[P] E-Hash2: %s\n", pixie_ehash2);
 		}
-		pix_success = 1;
+		run_pixiewps = 2;
  	}	
 
 	return 0;
@@ -1949,7 +1949,7 @@ static int wps_process_pubkey(struct wps_data *wps, const u8 *pk,
 	if (wps->dh_pubkey_e == NULL)
 		return -1;
 
-	if (*pixierun > 0)
+	if (run_pixiewps == 1)
 	{
 		memset(pixie_pke,0,sizeof(pixie_pke));
 		int pixiecnt = 0;

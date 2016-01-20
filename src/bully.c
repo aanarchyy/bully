@@ -339,8 +339,7 @@ int main(int argc, char *argv[])
 				break;
 			//Pixie
 			case 'd' :
-				memset(pixierun, 0, sizeof(pixierun));
-				strcpy(pixierun,"1");
+				run_pixiewps = 1;
 				break;
 			case '5' :
 				G->hop = AN_CHANS;
@@ -766,7 +765,7 @@ restart:
 
 	while (!ctrlc) {
 	
-		if (pix_success) {
+		if (run_pixiewps == 2) {
 		/* Creating pixiewps command */
 	
 			memset(cmd_pixie,0,sizeof(cmd_pixie));
@@ -788,15 +787,9 @@ restart:
 				
 			FILE *fpixe;
 				
-			//if ((fpixe = popen(cmd_pixie, "r")) == NULL) {
-			//	printf("Error opening pipe!\n");
-			//}
 			fpixe = popen(cmd_pixie, "r");
-			int pixie_test=0;
 			char *aux_pixie_pin;
 			int i=0;
-				
-			memset(pixie_pin, 0, sizeof(pixie_pin));
 		
 			printf("[+] Running pixiewps with the information, wait ...\n");
 			if ( debug_level == 4 )
@@ -809,16 +802,12 @@ restart:
 				if(aux_pixie_pin != NULL)
 				{
 					printf("[Pixie-Dust] WPS pin not found\n");
-					pixie_test = 0;
-					
-					//break;
+					break;
 				};
 					
 				aux_pixie_pin = strstr(pixie_buf_aux,"WPS pin:");
-				pix_success = 0;
 				if(aux_pixie_pin != NULL)
 				{
-					pixie_test = 1;
 					//here will get the pin
 					//a slightly better way to locate the pin
 					//thx offensive-security by attention
@@ -827,21 +816,19 @@ restart:
 					{
 						if(isdigit(aux_pixie_pin[i]))
 						{
-							strncpy(pixie_pin, aux_pixie_pin + i, 8);
+							strncpy(pinstr, aux_pixie_pin + i, 8);
+							run_pixiewps = 3;
 							break;
 						};
 					};
-					pix_success = 1;
-					strcpy(pinstr, pixie_pin);
 				};
 			};
 			pclose(fpixe);
 		};
-		if (*pixie_pin) { 
-			printf("[Pixie-Dust] PIN FOUND: %s\n", pixie_pin);
+		if (run_pixiewps == 3) { 
+			printf("[Pixie-Dust] PIN FOUND: %s\n", pinstr);
 			ctrlc--;
-			strcpy(pixierun,"");
-			
+			run_pixiewps = 4;
 		};
 
 		while (!ctrlc && result != SUCCESS) {
@@ -850,7 +837,7 @@ restart:
 			result = reassoc(G);
 		};
 
-		if (ctrlc && !pixie_pin) {
+		if (ctrlc) {
 			result = ctrlc;
 			break;
 		};

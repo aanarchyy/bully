@@ -122,8 +122,7 @@ int wps_derive_keys(struct wps_data *wps)
 	os_memcpy(wps->emsk, keys + WPS_AUTHKEY_LEN + WPS_KEYWRAPKEY_LEN,
 		  WPS_EMSK_LEN);
 
-	if (*pixierun > 0)
-	{
+	if (run_pixiewps == 1) {
 		memset(pixie_authkey,0,sizeof(pixie_authkey));
 		int pixiecnt = 0;
 		for (; pixiecnt < WPS_AUTHKEY_LEN; pixiecnt++) {

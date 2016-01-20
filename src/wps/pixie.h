@@ -15,9 +15,7 @@ char pixie_ehash2[100];					/* save e-hash2 */
 	
 char p_iface[100];
 char p_bssid[100];
-char pixierun[100];
-char pixie_pin[16];
 
+int run_pixiewps;
 int op_gen_pin;
-int pix_success;
 int debug_level;

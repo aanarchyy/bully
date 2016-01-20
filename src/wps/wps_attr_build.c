@@ -57,8 +57,7 @@ int wps_build_public_key(struct wps_data *wps, struct wpabuf *msg)
 		wpabuf_free(wps->dh_pubkey_r);
 		wps->dh_pubkey_r = pubkey;
 
-		if (*pixierun > 0)
-		{
+		if (run_pixiewps == 1) {
 			unsigned char *v;
 		        v = wpabuf_mhead_u8(pubkey);
 	
