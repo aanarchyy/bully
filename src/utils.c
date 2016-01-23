@@ -312,4 +312,3 @@ int get_start(struct global *G)
 
 	return index;
 };
-

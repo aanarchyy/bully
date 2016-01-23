@@ -70,7 +70,6 @@ make
   Advanced arguments:
 
       -d, --pixiewps         : Attempt to use pixiewps               [No]
-      -g, --genpin N         : Pin Generator [1] D-Link [2] Belkin    [0]
       -a, --acktime N        : Deprecated/ignored                  [Auto]
       -r, --retries N        : Resend packets N times when not acked  [2]
       -m, --m13time N        : Deprecated/ignored                  [Auto]
@@ -94,10 +93,6 @@ make
 
 ## -d // --pixiewps
 The -d option performs an offline attack, Pixie Dust _(`pixiewps`)_, by automatically passing the **PKE**, **PKR**, **E-Hash1**, **E-Hash2**, **E-Nonce** and **Authkey**. `pixiewps` will then try to attack **Ralink**, **Broadcom** and **Realtek** chipsets.
-
-## -g // --genpin
-The -g option uses known default pin generators.
-Options are -g 1 for D-Link and -g 2 for Belkin access points.
 
 ## -v // --verbosity
 The -v option specifies the verbosity of **bully**.

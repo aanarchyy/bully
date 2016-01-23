@@ -236,7 +236,7 @@ char usage[] =
 "  Advanced arguments:\n"
 "\n"
 "      -d, --pixiewps         : Attempt to use pixiewps               [No]\n"
-"      -g, --genpin N         : Pin Generator [1] D-Link [2] Belkin    [0]\n"
+/*"      -g, --genpin N         : Pin Generator [1] D-Link [2] Belkin    [0]\n"*/
 "      -a, --acktime N        : Deprecated/ignored                  [Auto]\n"
 "      -r, --retries N        : Resend packets N times when not acked  [2]\n"
 "      -m, --m13time N        : Deprecated/ignored                  [Auto]\n"

@@ -277,7 +277,6 @@ static int wps_process_serial_number(struct wps_device_data *dev,
 
 	wpa_hexdump_ascii(MSG_DEBUG, "WPS: Serial Number", str, str_len);
 
-	//if ((*pixierun > 0) && (debug_level == 4))
 	if (run_pixiewps == 1 && debug_level == 4) {
 		printf("[P] WPS Serial Number: ");
 		int pixiecnt = 0;
@@ -287,6 +286,7 @@ static int wps_process_serial_number(struct wps_device_data *dev,
 		printf("\n");
 	}
 
+	/*  I'll get to fixing this later...
 	if (op_gen_pin == 1)
 	{
 		
@@ -364,7 +364,7 @@ static int wps_process_serial_number(struct wps_device_data *dev,
 		//printf("[Pin Gen] Pin Generated (-1): %08d\n\n",pingen_belkin(mac2str(get_bssid(),'\0'), str, str_len, -1));
 		exit(0);
 	}	
-	
+	*/
 
 	os_free(dev->serial_number);
 	dev->serial_number = os_malloc(str_len + 1);

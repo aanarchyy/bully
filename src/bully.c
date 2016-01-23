@@ -16,6 +16,7 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+#include <stdint.h>
 #include <sys/socket.h>
 #include <sys/ioctl.h>
 #include <sys/types.h>
@@ -767,24 +768,24 @@ restart:
 	
 		if (run_pixiewps == 2) {
 		/* Creating pixiewps command */
-	
-			memset(cmd_pixie,0,sizeof(cmd_pixie));
-			strcat(cmd_pixie,"pixiewps -e ");
-			strcat(cmd_pixie,pixie_pke);
+			char *cmd_pixie;
+			cmd_pixie = malloc( 2520 * sizeof(char) );
+			strcpy(cmd_pixie,"pixiewps -e ");
+			strncat(cmd_pixie,pixie_pke, 1000);
 			strcat(cmd_pixie," -r ");
-			strcat(cmd_pixie,pixie_pkr);
+			strncat(cmd_pixie,pixie_pkr, 1000);
 			strcat(cmd_pixie," -s ");
-			strcat(cmd_pixie,pixie_ehash1);
+			strncat(cmd_pixie,pixie_ehash1,100);
 			strcat(cmd_pixie," -z ");
-			strcat(cmd_pixie,pixie_ehash2);
+			strncat(cmd_pixie,pixie_ehash2,100);
 			strcat(cmd_pixie," -a ");
-			strcat(cmd_pixie,pixie_authkey);
+			strncat(cmd_pixie,pixie_authkey,100);
 			strcat(cmd_pixie," -n ");
-			strcat(cmd_pixie,pixie_enonce);
+			strncat(cmd_pixie,pixie_enonce,100);
 			strcat(cmd_pixie," -m ");
-			strcat(cmd_pixie,pixie_rnonce);
+			strncat(cmd_pixie,pixie_rnonce,100);
 			strcat(cmd_pixie," -v 1 --force");
-				
+
 			FILE *fpixe;
 				
 			fpixe = popen(cmd_pixie, "r");
@@ -796,16 +797,19 @@ restart:
 			{
 				printf("Cmd : %s\n",cmd_pixie);
 			};
-			while (fgets(pixie_buf_aux, 4000, fpixe) != NULL) 
+			char *pixie_output;
+			pixie_output=malloc(100 * sizeof(char));
+			while (fgets(pixie_output, 100, fpixe) != NULL) 
 			{
-				aux_pixie_pin = strstr(pixie_buf_aux,"WPS pin not found");
+				aux_pixie_pin = strstr(pixie_output,"WPS pin not found");
 				if(aux_pixie_pin != NULL)
 				{
 					printf("[Pixie-Dust] WPS pin not found\n");
+					free(cmd_pixie);
 					break;
 				};
 					
-				aux_pixie_pin = strstr(pixie_buf_aux,"WPS pin:");
+				aux_pixie_pin = strstr(pixie_output,"WPS pin:");
 				if(aux_pixie_pin != NULL)
 				{
 					//here will get the pin
@@ -818,6 +822,7 @@ restart:
 						{
 							strncpy(pinstr, aux_pixie_pin + i, 8);
 							run_pixiewps = 3;
+							free(cmd_pixie);
 							break;
 						};
 					};

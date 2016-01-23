@@ -125,13 +125,16 @@ int wps_derive_keys(struct wps_data *wps)
 	if (run_pixiewps == 1) {
 		memset(pixie_authkey,0,sizeof(pixie_authkey));
 		int pixiecnt = 0;
+		char *get_auth;
+		get_auth=malloc(100 * sizeof(char));
 		for (; pixiecnt < WPS_AUTHKEY_LEN; pixiecnt++) {
-			sprintf(cmd_pixie_aux, "%02x",  wps->authkey[pixiecnt]);
-			strcat(pixie_authkey, cmd_pixie_aux);
+			sprintf(get_auth, "%02x",  wps->authkey[pixiecnt]);
+			strcat(pixie_authkey, get_auth);
 			if (pixiecnt != WPS_AUTHKEY_LEN - 1) {
 			strcat(pixie_authkey,":");
 			}
 		}
+		free(get_auth);
 		if ( debug_level <= 3 )
 		{
 			printf("[P] Authkey received.\n");
