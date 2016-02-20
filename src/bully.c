@@ -341,6 +341,7 @@ int main(int argc, char *argv[])
 			//Pixie
 			case 'd' :
 				run_pixiewps = 1;
+				G->force = 1;
 				break;
 			case '5' :
 				G->hop = AN_CHANS;
