@@ -98,3 +98,7 @@ The -d option performs an offline attack, Pixie Dust _(`pixiewps`)_, by automati
 The -v option specifies the verbosity of **bully**.
 -v 4 now prints all the collected hashes and outputs the pixiewps command run.
 Default runlevel is 3.
+
+# Acknowledgements
+None of this would have happened without the rest of the great team I am proud to credit with helping me:
+`t6_x`, `DataHead`, `Soxrok2212`, `Wiire`
