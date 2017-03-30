@@ -966,7 +966,7 @@ restart:
 	if ((rf = fopen(G->runf, "a")) != NULL) {
 		if (op_gen_pin == 1)
 		{
-			return;
+			return 0;
 		}
 
 		gettimeofday(&timer, NULL);
