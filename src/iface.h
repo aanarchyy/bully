@@ -72,5 +72,8 @@ struct cfreq {
 };
 #define	NUM_CHAN (sizeof(freqs)/sizeof(struct cfreq))
 
+int set_chan(struct global *G, int chan);
+int set_chanx(struct global *G, int chanx);
+int next_chan(struct global *G);
 
 #endif /* _IFACE_H */
