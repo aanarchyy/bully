@@ -14,7 +14,7 @@ The latest version can be found here: [https://github.com/wiire/pixiewps](https:
 
 # Requirements
 
-`apt-get -y install build-essential libpcap-dev libssl-dev aircrack-ng pixiewps`
+`apt-get -y install build-essential libpcap-dev libssl1.0-dev aircrack-ng pixiewps`
 
 # Setup
 
