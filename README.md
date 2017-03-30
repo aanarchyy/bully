@@ -36,7 +36,9 @@ make
 
 **Install**
 
-`sudo make install`
+```
+sudo make install
+```
 
 # Usage
 
