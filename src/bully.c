@@ -77,7 +77,7 @@
 #include "iface.h"
 #include "bully.h"
 
-#include "wps/pixie.h"
+#include "pixie.h"
 
 sig_atomic_t ctrlc = 0;
 sig_atomic_t signm = 0;
