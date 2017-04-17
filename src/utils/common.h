@@ -414,18 +414,18 @@ void perror(const char *s);
  */
 #ifdef __CHECKER__
 #define __force __attribute__((force))
-#define __bitwise __attribute__((bitwise))
+#define __common_bitwise __attribute__((bitwise))
 #else
 #define __force
-#define __bitwise
+#define __common_bitwise
 #endif
 
-typedef u16 __bitwise be16;
-typedef u16 __bitwise le16;
-typedef u32 __bitwise be32;
-typedef u32 __bitwise le32;
-typedef u64 __bitwise be64;
-typedef u64 __bitwise le64;
+typedef u16 __common_bitwise be16;
+typedef u16 __common_bitwise le16;
+typedef u32 __common_bitwise be32;
+typedef u32 __common_bitwise le32;
+typedef u64 __common_bitwise be64;
+typedef u64 __common_bitwise le64;
 
 #ifndef __must_check
 #if __GNUC__ > 3 || (__GNUC__ == 3 && __GNUC_MINOR__ >= 4)
