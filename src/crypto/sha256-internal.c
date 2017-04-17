@@ -162,28 +162,28 @@ static int sha256_process(struct sha256_state *md, const unsigned char *in,
 			  unsigned long inlen)
 {
 	unsigned long n;
-#define block_size 64
+#define sha256_block_size 64
 
 	if (md->curlen > sizeof(md->buf))
 		return -1;
 
 	while (inlen > 0) {
-		if (md->curlen == 0 && inlen >= block_size) {
+		if (md->curlen == 0 && inlen >= sha256_block_size) {
 			if (sha256_compress(md, (unsigned char *) in) < 0)
 				return -1;
-			md->length += block_size * 8;
-			in += block_size;
-			inlen -= block_size;
+			md->length += sha256_block_size * 8;
+			in += sha256_block_size;
+			inlen -= sha256_block_size;
 		} else {
-			n = MIN(inlen, (block_size - md->curlen));
+			n = MIN(inlen, (sha256_block_size - md->curlen));
 			os_memcpy(md->buf + md->curlen, in, n);
 			md->curlen += n;
 			in += n;
 			inlen -= n;
-			if (md->curlen == block_size) {
+			if (md->curlen == sha256_block_size) {
 				if (sha256_compress(md, md->buf) < 0)
 					return -1;
-				md->length += 8 * block_size;
+				md->length += 8 * sha256_block_size;
 				md->curlen = 0;
 			}
 		}

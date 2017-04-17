@@ -9,7 +9,7 @@ define Package/bully
   CATEGORY:=Network
   SUBMENU:=wireless
   TITLE:=Brute force attack against WPS, that actually works
-  DEPENDS:=+libpcap +libopenssl
+  DEPENDS:=+libpcap
 endef
 
 define Package/bully/description
