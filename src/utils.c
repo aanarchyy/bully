@@ -253,6 +253,7 @@ int get_start(struct global *G)
 	if ((rf = fopen(oldf, "r")) != NULL)
 		rename(oldf, G->runf);
 	free(oldf);
+	fclose(rf);
 
 	if ((rf = fopen(G->runf, "r")) == NULL) {
 		
