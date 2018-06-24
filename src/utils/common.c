@@ -578,6 +578,7 @@ int pingen_zhaochunsheng(char *mac, int add)
 
     strcpy(bssid_copy, mac);
     bssid_parts = strtok(bssid_copy, ":");
+    free(bssid_copy);
 
     while(bssid_parts)
     {
